@@ -3,7 +3,7 @@ import io, { Socket } from 'socket.io-client';
 import { DefaultEventsMap } from '@socket.io/component-emitter';
 
 // Assuming your server is running on localhost:5000
-const SIGNALING_SERVER_URL = 'http://localhost:8080/call';
+const SIGNALING_SERVER_URL = 'http://34.87.203.218:8080/call';
 const STUN_SERVER_URL = 'stun:stun.l.google.com:19302'; // A public STUN server
 
 const CallPage: React.FC = () => {
