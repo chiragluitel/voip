@@ -2,16 +2,13 @@
 import express from 'express';
 import http from 'http';
 import cors from 'cors'; // Import the cors package
-import WebSocket, { WebSocketServer } from 'ws';
+// import { WebSocketServer } from 'ws';
 import { Server as SocketIOServer, Socket } from 'socket.io';
-import path from 'path';
-
-
 
 const app = express();
 const port = process.env.PORT || 8080;
 const server = http.createServer(app);
-const wss = new WebSocketServer({ server });
+// const wss = new WebSocketServer({ server });
 // --- Basic Express Route ---
 app.get('/', (req, res) => {
   res.send('VOIP Signaling Server is running!');
@@ -42,6 +39,7 @@ callNamespace.on('connection', (socket: Socket) => {
         // Notify the newly connected user if they are the first
         if (connectedUsers.length === 1) {
             socket.emit('waiting');
+            console.log('waiting for peer')
         } else if (connectedUsers.length === 2) {
             // If two users are connected, signal them to start the call
             callNamespace.emit('ready');
@@ -88,7 +86,7 @@ callNamespace.on('connection', (socket: Socket) => {
     });
 });
 
-const PORT = 8080; // Or your preferred port
+const PORT = port || 8080; // Or your preferred port
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
